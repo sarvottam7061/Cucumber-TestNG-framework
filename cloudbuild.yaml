@@ -16,7 +16,7 @@ steps:
     args:
       - "-c"
       - |
-        mvn clean verify -Dcucumber.filter.tags="@smoke" -DBrowser="Grid" -DGridUrl="http://localhost:4444/"
+        mvn clean verify -Dcucumber.filter.tags="@Testing" -DBrowser="Grid" -DGridUrl="http://localhost:4444/"
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: "bash"
     args:
