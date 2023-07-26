@@ -1,7 +1,7 @@
 Feature: Shopping Test
   We are testing SauceLab
 
-  @Testing
+  @Testing @smoke
   Scenario: We logging into SauceLab and adding Bags to cart and Checking out
     Given I navigate to sauceLab url
     When User has given correct credentials

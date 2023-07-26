@@ -9,8 +9,11 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public class AllDriverManager {
@@ -60,11 +63,16 @@ public class AllDriverManager {
         return webDriver;
     }
 
-    private WebDriver createRemoteDriver() {
-        throw new RuntimeException("Remote web driver is not yet implemented");
+    private WebDriver createRemoteDriver() throws MalformedURLException {
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--start-maximized");
+        webDriver = new RemoteWebDriver(new URL("http://192.168.1.6:4444"), chromeOptions);
+        long time = FileReaderManager.getInstance().getConfigFileReader().getTime();
+        webDriver.manage().timeouts().implicitlyWait(time, TimeUnit.SECONDS);
+        return webDriver;
     }
 
-    private WebDriver createDriver() {
+    private WebDriver createDriver() throws MalformedURLException {
         switch (environmentType) {
             case LOCAL:
                 webDriver = createLocalDriver();
@@ -76,7 +84,7 @@ public class AllDriverManager {
         return webDriver;
     }
 
-    public WebDriver getDriver() {
+    public WebDriver getDriver() throws MalformedURLException {
         if (webDriver == null) webDriver = createDriver();
         return webDriver;
     }

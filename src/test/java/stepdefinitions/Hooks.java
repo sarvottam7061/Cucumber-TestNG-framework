@@ -10,6 +10,8 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 
+import java.net.MalformedURLException;
+
 public class Hooks {
 
     TestContext testContext;
@@ -20,7 +22,7 @@ public class Hooks {
     }
 
     @Before
-    public void setUp() {
+    public void setUp() throws MalformedURLException {
         webDriver = testContext.getDriverManager().getDriver();
         webDriver.get(FileReaderManager.getInstance().getConfigFileReader().getUrl());
     }
@@ -32,7 +34,7 @@ public class Hooks {
             try {
                 byte[] screenshot = ((TakesScreenshot)testContext.getDriverManager().getDriver()).getScreenshotAs(OutputType.BYTES);
                 scenario.attach(screenshot, "image/png", "screenshot");
-            } catch (WebDriverException noSupportScreenshot) {
+            } catch (WebDriverException | MalformedURLException noSupportScreenshot) {
                 System.err.println(noSupportScreenshot.getMessage());
             }
         }

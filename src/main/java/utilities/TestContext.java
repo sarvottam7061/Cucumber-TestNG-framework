@@ -3,13 +3,15 @@ package utilities;
 import managers.AllDriverManager;
 import managers.PageObjectManager;
 
+import java.net.MalformedURLException;
+
 public class TestContext {
 
     private final AllDriverManager driverManager;
     private final PageObjectManager pageObjectManager;
     public ScenarioContext scenarioContext;
 
-    public TestContext() {
+    public TestContext() throws MalformedURLException {
         driverManager = new AllDriverManager();
         pageObjectManager = new PageObjectManager(driverManager.getDriver());
         scenarioContext = new ScenarioContext();
