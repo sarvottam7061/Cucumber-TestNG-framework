@@ -22,7 +22,7 @@ spec:
           - containerPort: 4444
         livenessProbe:
           httpGet:
-            path: /wd/hub/status
+            path: /ui#/sessions
             port: 4444
           initialDelaySeconds: 30
           timeoutSeconds: 5
