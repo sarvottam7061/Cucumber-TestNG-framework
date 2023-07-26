@@ -1,7 +1,7 @@
 steps:
   - name: 'docker/compose'
     id: 'compose-up'
-    args: [ '-f', 'docker-compose.yaml', 'up', '-d' ]
+    args: [ 'docker-compose', '-f', 'docker-compose.yaml', 'up']
 
 #  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
 #    entrypoint: 'bash'
