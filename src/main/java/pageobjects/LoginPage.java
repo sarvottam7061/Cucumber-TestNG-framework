@@ -138,27 +138,27 @@ public class LoginPage {
     }
     public void clickOnBagAddToCart() throws InterruptedException {
         addbagtocart.click();
-        Thread.sleep(2000);
+        Thread.sleep(10000);
     }
     public void clickOnBikeAddToCart() throws InterruptedException {
         addbiketocart.click();
-        Thread.sleep(2000);
+        Thread.sleep(10000);
     }
     public void clickOnTshirtAddToCart() throws InterruptedException {
         addtshirttocart.click();
-        Thread.sleep(2000);
+        Thread.sleep(10000);
     }
     public void clickOnJacketAddToCart() throws InterruptedException {
         addjackettocart.click();
-        Thread.sleep(2000);
+        Thread.sleep(10000);
     }
     public void clickOnOnesiAddToCart() throws InterruptedException {
         addonesitocart.click();
-        Thread.sleep(2000);
+        Thread.sleep(10000);
     }
     public void clickOnRedtshirtAddToCart() throws InterruptedException {
         addredtshirttocart.click();
-        Thread.sleep(2000);
+        Thread.sleep(10000);
     }
 
     public void clickOnCart(){
