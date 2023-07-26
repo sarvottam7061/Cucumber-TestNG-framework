@@ -1,0 +1,28 @@
+steps:
+  - name: 'docker/compose'
+    id: 'compose-up'
+    args: [ '-f', 'docker-compose.yaml', 'up', '-d' ]
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        sleep 60
+
+  - name: 'maven:3-jdk-8'
+    id: 'Execute-Functional-Assurance'
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        mvn clean verify -Dcucumber.filter.tags="@smoke" -DBrowser="Grid" -DGridUrl="http://localhost:4444/"
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        gsutil -m cp -r 'target' gs://maven-automation-bucket
+logsBucket: 'gs://maven-automation-bucket'
+options:
+  logging: GCS_ONLY
