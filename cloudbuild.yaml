@@ -3,12 +3,12 @@ steps:
     id: 'compose-up'
     args: [ '-f', 'docker-compose.yaml', 'up', '-d' ]
 
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        sleep 10
+#  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+#    entrypoint: 'bash'
+#    args:
+#      - '-c'
+#      - |
+#        sleep 10
 
   - name: 'maven:3.8.1-jdk-11-openj9'
     id: 'Execute-Functional-Assurance'
