@@ -2,7 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: selenium-hub
+  labels:
+    app: selenium-hub
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: selenium-hub
@@ -12,24 +15,25 @@ spec:
         app: selenium-hub
     spec:
       containers:
-      - name: selenium-hub
-        image: selenium/hub:latest
-        resources:
-          limits:
-            memory: "1000Mi"
-            cpu: ".5"
-        ports:
-          - containerPort: 4444
-        livenessProbe:
-          httpGet:
-            path: /ui#/sessions
-            port: 4444
-          initialDelaySeconds: 30
-          timeoutSeconds: 5
-        readinessProbe:
-          httpGet:
-            path: /grid/console
-            port: 4444
-          initialDelaySeconds: 30
-          timeoutSeconds: 5
-
+        - name: selenium-hub
+          image: selenium/hub:latest
+          ports:
+            - containerPort: 4444
+            - containerPort: 4443
+            - containerPort: 4442
+          resources:
+            limits:
+              memory: "1000Mi"
+              cpu: ".5"
+          livenessProbe:
+            httpGet:
+              path: /wd/hub/status
+              port: 4444
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /wd/hub/status
+              port: 4444
+            initialDelaySeconds: 30
+            timeoutSeconds: 5

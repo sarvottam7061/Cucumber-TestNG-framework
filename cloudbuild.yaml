@@ -4,7 +4,7 @@ steps:
     args: [ 'apply', '-f', 'k8s/' ]
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=us-west2'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=cucumber-testng-framework'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=cucumber-testng-framework-deploy'
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
@@ -19,7 +19,7 @@ steps:
     args:
       - "-c"
       - |
-          mvn clean verify -Dcucumber.filter.tags="@Testing" -DBrowser="Grid" -DGridUrl="http://35.202.84.28:4444/"
+          mvn clean verify -Dcucumber.filter.tags="@Testing" -DBrowser="Grid" -DGridUrl="http://34.102.101.254:4444/"
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: "bash"
     args:
@@ -30,7 +30,7 @@ steps:
 #    args: [ 'delete', '-f', 'k8s/' ]
 #    env:
 #      - 'CLOUDSDK_COMPUTE_ZONE=us-west2'
-#      - 'CLOUDSDK_CONTAINER_CLUSTER=cucumber-testng-framework'
+#      - 'CLOUDSDK_CONTAINER_CLUSTER=cucumber-testng-framework-deploy'
 logsBucket: 'gs://maven-automation-bucket'
 options:
   logging: GCS_ONLY

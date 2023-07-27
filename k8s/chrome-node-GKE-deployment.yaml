@@ -1,29 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: chrome-node-rc
+  name: selenium-node-chrome
   labels:
-    app: chrome-node-rc
+    app: selenium-node-chrome
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: chrome-node-rc
+      app: selenium-node-chrome
   template:
     metadata:
-      name: chrome-node-rc
       labels:
-        app: chrome-node-rc
+        app: selenium-node-chrome
     spec:
       volumes:
         - name: dshm
           emptyDir:
             medium: Memory
       containers:
-        - name: chrome-node-rc
-          image: 'selenium/node-chrome-debug:3.141'
+        - name: selenium-node-chrome
+          image: selenium/node-chrome:latest
           ports:
-            - containerPort: 4444
+            - containerPort: 5555
           volumeMounts:
             - mountPath: /dev/shm
               name: dshm
@@ -32,7 +31,7 @@ spec:
               value: 34.102.101.254
             - name: HUB_PORT
               value: '4444'
-          resources:
-            limits:
-              memory: 1000Mi
-              cpu: 500m
+            resources:
+              limits:
+                memory: 1000Mi
+                cpu: 500m
