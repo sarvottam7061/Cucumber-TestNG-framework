@@ -4,7 +4,7 @@ steps:
     args: [ 'apply', '-f', 'k8s/' ]
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=us-west2'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=cucumber-testng-framework-deploy'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=cucumber-testng-framework'
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
@@ -30,7 +30,7 @@ steps:
 #    args: [ 'delete', '-f', 'k8s/' ]
 #    env:
 #      - 'CLOUDSDK_COMPUTE_ZONE=us-west2'
-#      - 'CLOUDSDK_CONTAINER_CLUSTER=cucumber-testng-framework-deploy'
+#      - 'CLOUDSDK_CONTAINER_CLUSTER=cucumber-testng-framework'
 logsBucket: 'gs://maven-automation-bucket'
 options:
   logging: GCS_ONLY
