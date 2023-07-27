@@ -18,7 +18,7 @@ spec:
   selector:
     app: selenium-hub
   type: LoadBalancer
-status:
-  loadBalancer:
-    ingress:
-      - ip: 34.102.101.254
+#status:
+#  loadBalancer:
+#    ingress:
+#      - ip: 34.102.101.254
