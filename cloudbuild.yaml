@@ -11,7 +11,7 @@ steps:
     args:
       - '-c'
       - |
-        sleep 200
+        sleep 100
 
   - name: 'maven:3-jdk-8'
     id: 'Execute-Functional-Assurance'
