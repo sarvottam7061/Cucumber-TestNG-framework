@@ -3,72 +3,8 @@ kind: Service
 metadata:
   annotations:
     cloud.google.com/neg: '{"ingress":true}'
-    kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"selenium-hub"},"name":"selenium-hub","namespace":"default"},"spec":{"ports":[{"name":"port0","port":4444,"targetPort":4444},{"name":"port1","port":4443,"targetPort":4443},{"name":"port2","port":4442,"targetPort":4442}],"selector":{"app":"selenium-hub"},"type":"LoadBalancer"}}
-  creationTimestamp: "2023-07-28T06:15:15Z"
-  finalizers:
-    - service.kubernetes.io/load-balancer-cleanup
   labels:
     app: selenium-hub
-  managedFields:
-    - apiVersion: v1
-      fieldsType: FieldsV1
-      fieldsV1:
-        f:metadata:
-          f:annotations:
-            .: {}
-            f:kubectl.kubernetes.io/last-applied-configuration: {}
-          f:labels:
-            .: {}
-            f:app: {}
-        f:spec:
-          f:allocateLoadBalancerNodePorts: {}
-          f:externalTrafficPolicy: {}
-          f:internalTrafficPolicy: {}
-          f:ports:
-            .: {}
-            k:{"port":4442,"protocol":"TCP"}:
-              .: {}
-              f:name: {}
-              f:port: {}
-              f:protocol: {}
-              f:targetPort: {}
-            k:{"port":4443,"protocol":"TCP"}:
-              .: {}
-              f:name: {}
-              f:port: {}
-              f:protocol: {}
-              f:targetPort: {}
-            k:{"port":4444,"protocol":"TCP"}:
-              .: {}
-              f:name: {}
-              f:port: {}
-              f:protocol: {}
-              f:targetPort: {}
-          f:selector: {}
-          f:sessionAffinity: {}
-          f:type: {}
-      manager: kubectl-client-side-apply
-      operation: Update
-      time: "2023-07-28T06:44:52Z"
-    - apiVersion: v1
-      fieldsType: FieldsV1
-      fieldsV1:
-        f:metadata:
-          f:finalizers:
-            .: {}
-            v:"service.kubernetes.io/load-balancer-cleanup": {}
-        f:status:
-          f:loadBalancer:
-            f:ingress: {}
-      manager: cloud-controller-manager
-      operation: Update
-      subresource: status
-      time: "2023-07-28T06:45:31Z"
-  name: selenium-hub
-  namespace: default
-  resourceVersion: "848729"
-  uid: 115586c6-57c6-41da-9833-54ef86f78683
 spec:
   allocateLoadBalancerNodePorts: true
   clusterIP: 34.118.226.102
