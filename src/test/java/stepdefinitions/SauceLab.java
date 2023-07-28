@@ -33,7 +33,7 @@ public class SauceLab {
     }
 
     @And("Click on Login Button")
-    public void clickLogonButton(){
+    public void clickLogonButton() throws InterruptedException {
         loginPage.clickLoginButton();
     }
 

@@ -19,18 +19,18 @@ steps:
     args:
       - "-c"
       - |
-          mvn clean verify -Dcucumber.filter.tags="@Testing" -DBrowser="Grid" -DGridUrl="http://34.102.25.223:4444/"
+          mvn clean verify -Dcucumber.filter.tags="@Testing" -DBrowser="Grid" -DGridUrl="http://34.94.95.107:4444/:4444/"
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: "bash"
     args:
       - "-c"
       - |
         gsutil -m cp -r 'target' gs://maven-automation-bucket
-#  - name: 'gcr.io/cloud-builders/kubectl'
-#    args: [ 'delete', '-f', 'k8s/' ]
-#    env:
-#      - 'CLOUDSDK_COMPUTE_ZONE=us-west2'
-#      - 'CLOUDSDK_CONTAINER_CLUSTER=cucumber-testng-framework-deploy'
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: [ 'delete', '-f', 'k8s/' ]
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-west2'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=cucumber-testng-framework-deploy'
 logsBucket: 'gs://maven-automation-bucket'
 options:
   logging: GCS_ONLY

@@ -129,7 +129,8 @@ public class LoginPage {
         passwordField.sendKeys(password);
     }
 
-    public void clickLoginButton(){
+    public void clickLoginButton() throws InterruptedException {
+        Thread.sleep(10000);
         loginButton.click();
     }
     public boolean defaultSauceLabsBackpackDisplayed(){
