@@ -50,7 +50,7 @@ public class LoginPage {
     private WebElement addbiketocart;
     @FindBy(id = "add-to-cart-sauce-labs-bolt-t-shirt")
     private WebElement addtshirttocart;
-    @FindBy(id = "add-to-cart-sauce-labs-fleece-jacke")
+    @FindBy(id = "add-to-cart-sauce-labs-fleece-jacket")
     private WebElement addjackettocart;
     @FindBy(id = "add-to-cart-sauce-labs-onesie")
     private WebElement addonesitocart;
