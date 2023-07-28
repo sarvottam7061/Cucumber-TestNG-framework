@@ -18,7 +18,7 @@ spec:
   selector:
     app: selenium-hub
   type: LoadBalancer
-  loadBalancerIP: 34.94.95.107
+#  loadBalancerIP: 34.94.95.107
 
 #status:
 #  loadBalancer:
