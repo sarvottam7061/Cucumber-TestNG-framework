@@ -17,7 +17,7 @@ steps:
         external_seleniumip=$(kubectl get svc selenium-hub --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}");
         [ -z "$external_seleniumip" ] && sleep 15; done; echo "End point ready-" && echo $external_seleniumip; export endpoint=external_seleniumip
         gcloud beta runtime-config configs create Cluster-config --description "Global config that hold major key value pairs"
-        gcloud beta runtime-config configs variables set DEFAULT_SELENIUM_IP external_seleniumip --config-name Cluster-config --is-text
+        gcloud beta runtime-config configs variables set DEFAULT_SELENIUM_IP $external_seleniumip --config-name Cluster-config --is-text
         echo $external_seleniumip
 #  - name: 'gcr.io/cloud-builders/docker'
 #    args: [ 'build', '-t', 'us-west2-docker.pkg.dev/$PROJECT_ID/framework/cucumber', '.' ]
