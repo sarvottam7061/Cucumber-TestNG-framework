@@ -9,7 +9,7 @@ steps:
         kubectl create namespace selenium-hub
         kubectl get namespace
         kubectl apply -f k8s
-        sleep 110
+        sleep 111
         bash -c external_seleniumip="";
         while [ -z $external_seleniumip ];
         do echo "Please Wait - Selenium hub is Loading...";
