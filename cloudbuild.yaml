@@ -27,6 +27,7 @@ steps:
         cat configuration.properties
         cat /workspace/selenium_ip.txt >> configuration.properties
         cat configuration.properties
+        cd ..
         mvn clean verify
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: "bash"
