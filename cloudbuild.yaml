@@ -16,19 +16,8 @@ steps:
         do echo "Please Wait - Selenium hub is Loading...";
         external_seleniumip=$(kubectl get svc selenium-hub --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}");
         [ -z "$external_seleniumip" ] && sleep 15; done; echo "End point ready-" && echo $external_seleniumip; export endpoint=external_seleniumip
-        gcloud beta runtime-config configs create Cluster-config --description "Global config that hold major key value pairs"
-        gcloud beta runtime-config configs variables set default-selenium-ip $external_seleniumip --config-name Cluster-config --is-text
-        echo $default-selenium-ip
-#  - name: 'gcr.io/cloud-builders/docker'
-#    args: [ 'build', '-t', 'us-west2-docker.pkg.dev/$PROJECT_ID/framework/cucumber', '.' ]
-
-#  - name: 'gcr.io/cloud-builders/kubectl'
-#    id: 'Deploying-Grid'
-#    args: [ 'apply', '-f', 'k8s/' ]
-#    env:
-#      - 'CLOUDSDK_COMPUTE_ZONE=us-west2'
-#      - 'CLOUDSDK_CONTAINER_CLUSTER=cucumber-testng-framework-deploy'
-
+        echo "$external_seleniumip" > /workspace/selenium_ip.txt
+        echo "$external_seleniumip"
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
     args:
@@ -42,8 +31,8 @@ steps:
     args:
       - "-c"
       - |
-        gcloud beta runtime-config configs variables get-value default-selenium-ip --config-name Cluster-config
-        echo $default-selenium-ip
+        echo "Selenium_ip" $(cat /workspace/first.txt)
+        echo $(cat /workspace/first.txt)
         mvn clean verify -Dcucumber.filter.tags="@Testing" -DBrowser="Grid" -DGridUrl="default-selenium-ip_IP:4444/"
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: "bash"
