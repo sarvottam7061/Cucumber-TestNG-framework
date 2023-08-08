@@ -5,7 +5,6 @@ steps:
       - "-c"
       - |
         gcloud container --project qea-sandbox clusters create cucumber-testng-framework-deploy --zone us-west2 --no-enable-basic-auth
-        sleep 100
         gcloud container clusters get-credentials cucumber-testng-framework-deploy --zone us-west2 --project qea-sandbox
         kubectl create namespace selenium-hub
         kubectl get namespace
@@ -18,12 +17,12 @@ steps:
         [ -z "$external_seleniumip" ] && sleep 15; done; echo "End point ready-" && echo $external_seleniumip; export endpoint=external_seleniumip
         echo "$external_seleniumip" > /workspace/selenium_ip.txt
         echo "$external_seleniumip"
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        sleep 100
+#  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+#    entrypoint: 'bash'
+#    args:
+#      - '-c'
+#      - |
+#        sleep 100
 
   - name: 'maven:3-jdk-8'
     id: 'Execute-Functional-Assurance'
@@ -31,7 +30,7 @@ steps:
     args:
       - "-c"
       - |
-        echo "Selenium_ip" $(cat /workspace/first.txt)
+        echo "Selenium_ip" $(cat /workspace/selenium_ip.txt)
         echo $(cat /workspace/first.txt)
         mvn clean verify -Dcucumber.filter.tags="@Testing" -DBrowser="Grid" -DGridUrl="default-selenium-ip_IP:4444/"
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
