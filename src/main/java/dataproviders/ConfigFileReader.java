@@ -55,6 +55,13 @@ public class ConfigFileReader {
         }
     }
 
+    public String getSeleniumHubIp() {
+        String hubip = properties.getProperty("selenium_ip");
+
+
+        return hubip;
+    }
+
     public DriverType getBrowser()  {
         String browserName = properties.getProperty("browser");
 

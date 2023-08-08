@@ -66,7 +66,8 @@ public class AllDriverManager {
     private WebDriver createRemoteDriver() throws MalformedURLException {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--start-maximized");
-        webDriver = new RemoteWebDriver(new URL(""), chromeOptions);
+        String selenium_hib_ip = FileReaderManager.getInstance().getConfigFileReader().getSeleniumHubIp();
+        webDriver = new RemoteWebDriver(new URL(selenium_hib_ip), chromeOptions);
         long time = FileReaderManager.getInstance().getConfigFileReader().getTime();
         webDriver.manage().timeouts().implicitlyWait(time, TimeUnit.SECONDS);
         return webDriver;

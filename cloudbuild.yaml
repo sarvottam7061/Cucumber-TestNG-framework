@@ -17,49 +17,34 @@ steps:
         [ -z "$external_seleniumip" ] && sleep 15; done; echo "End point ready-" && echo $external_seleniumip; export endpoint=external_seleniumip
         echo " $external_seleniumip" > /workspace/selenium_ip.txt
         echo " $external_seleniumip"
-#  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-#    entrypoint: 'bash'
-#    args:
-#      - '-c'
-#      - |
-#        sleep 100
-
   - name: 'maven:3-jdk-8'
     id: 'Execute-Functional-Assurance'
     entrypoint: "bash"
     args:
       - "-c"
       - |
-        cat /workspace/selenium_ip.txt
-        ls
         cd config
-        ls
         cat configuration.properties
         cat /workspace/selenium_ip.txt >> configuration.properties
-        ls
         cat configuration.properties
-        mvn clean verify -Dcucumber.filter.tags="@Testing" -DBrowser="Grid" -DGridUrl="http://${selenium_url}:4444/"
+        mvn clean verify
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: "bash"
     args:
       - "-c"
       - |
         gsutil -m cp -r 'target' gs://maven-automation-bucket
-#  - name: 'gcr.io/cloud-builders/kubectl'
-#    args: [ 'delete', '-f', 'k8s/' ]
-#    env:
-#      - 'CLOUDSDK_COMPUTE_ZONE=us-west2'
-#      - 'CLOUDSDK_CONTAINER_CLUSTER=cucumber-testng-framework-deploy'
-#  - name: 'gcr.io/cloud-builders/gcloud'
-#    entrypoint: 'bash'
-#    args:
-#      - -c
-#      - |
-#        gcloud container clusters delete cucumber-testng-framework-deploy --region=us-west2 --async --quiet
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: [ 'delete', '-f', 'k8s/' ]
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-west2'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=cucumber-testng-framework-deploy'
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - -c
+      - |
+        gcloud container clusters delete cucumber-testng-framework-deploy --region=us-west2 --async --quiet
 logsBucket: 'gs://maven-automation-bucket'
-#images:
-#  - 'us-west2-docker.pkg.dev/$PROJECT_ID/framework/cucumber'
-
-#kubectl get svc selenium-hub --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}"
 options:
   logging: GCS_ONLY
