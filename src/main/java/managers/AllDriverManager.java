@@ -68,7 +68,6 @@ public class AllDriverManager {
         chromeOptions.addArguments("--start-maximized");
         String selenium_hib_ip = FileReaderManager.getInstance().getConfigFileReader().getSeleniumHubIp();
         webDriver = new RemoteWebDriver(new URL("http://" + selenium_hib_ip + ":4444/"), chromeOptions);
-        35.235.121.97:4444/ui
         long time = FileReaderManager.getInstance().getConfigFileReader().getTime();
         webDriver.manage().timeouts().implicitlyWait(time, TimeUnit.SECONDS);
         return webDriver;
