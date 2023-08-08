@@ -30,11 +30,12 @@ steps:
     args:
       - "-c"
       - |
-        cat /workspace/selenium_ip.txt > /config/configuration.properties
+        cat /workspace/selenium_ip.txt
         ls
         cd config
         ls
         cat configuration.properties
+        cat /workspace/selenium_ip.txt
         mvn clean verify -Dcucumber.filter.tags="@Testing" -DBrowser="Grid" -DGridUrl="http://${selenium_url}:4444/"
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: "bash"
