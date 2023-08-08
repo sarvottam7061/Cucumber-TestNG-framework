@@ -35,7 +35,7 @@ steps:
         cd config
         ls
         cat configuration.properties
-        cat /workspace/selenium_ip.txt > configuration.properties
+        cat /workspace/selenium_ip.txt >> configuration.properties
         ls
         cat configuration.properties
         mvn clean verify -Dcucumber.filter.tags="@Testing" -DBrowser="Grid" -DGridUrl="http://${selenium_url}:4444/"
