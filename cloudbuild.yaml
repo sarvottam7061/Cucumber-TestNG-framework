@@ -2,7 +2,7 @@ steps:
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
-      - -c
+      - "-c"
       - |
 #        gcloud iam service-accounts create kubernetes-sa --display-name="My Service Account"
 #        gcloud projects add-iam-policy-binding qea-sandbox --member="serviceAccount:kubernetes-sa@qea-sandbox.iam.gserviceaccount.com" --role="roles/owner"
