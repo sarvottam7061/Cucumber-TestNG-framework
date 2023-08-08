@@ -9,7 +9,7 @@ steps:
         kubectl create namespace selenium-hub
         kubectl get namespace
         kubectl apply -f k8s
-        sleep 111
+        sleep 20
         bash -c external_seleniumip="";
         while [ -z $external_seleniumip ];
         do echo "Please Wait - Selenium hub is Loading...";
@@ -30,9 +30,9 @@ steps:
     args:
       - "-c"
       - |
-        echo "Selenium_ip" $(cat /workspace/selenium_ip.txt)
-        echo $(cat /workspace/first.txt)
-        mvn clean verify -Dcucumber.filter.tags="@Testing" -DBrowser="Grid" -DGridUrl="default-selenium-ip_IP:4444/"
+        echo $(cat /workspace/selenium_ip.txt)
+        var default-selenium-ip  $(cat /workspace/selenium_ip.txt)
+        mvn clean verify -Dcucumber.filter.tags="@Testing" -DBrowser="Grid" -DGridUrl="default-selenium-ip:4444/"
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: "bash"
     args:
