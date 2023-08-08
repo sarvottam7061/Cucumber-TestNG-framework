@@ -15,8 +15,8 @@ steps:
         do echo "Please Wait - Selenium hub is Loading...";
         external_seleniumip=$(kubectl get svc selenium-hub --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}");
         [ -z "$external_seleniumip" ] && sleep 15; done; echo "End point ready-" && echo $external_seleniumip; export endpoint=external_seleniumip
-        echo "$external_seleniumip" > /workspace/selenium_ip.txt
-        echo "$external_seleniumip"
+        echo " $external_seleniumip" > /workspace/selenium_ip.txt
+        echo " $external_seleniumip"
 #  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
 #    entrypoint: 'bash'
 #    args:
