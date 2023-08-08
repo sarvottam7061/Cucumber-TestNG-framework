@@ -30,10 +30,8 @@ steps:
     args:
       - "-c"
       - |
-        echo $(cat /workspace/selenium_ip.txt)
-        var default-selenium-ip  $(cat /workspace/selenium_ip.txt)
-        echo "$default-selenium-ip"
-        mvn clean verify -Dcucumber.filter.tags="@Testing" -DBrowser="Grid" -DGridUrl="'$default-selenium-ip':4444/"
+        default-selenium-ip="echo $(cat /workspace/selenium_ip.txt)"
+        mvn clean verify -Dcucumber.filter.tags="@Testing" -DBrowser="Grid" -DGridUrl="default-selenium-ip:4444/"
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: "bash"
     args:
