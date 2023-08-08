@@ -4,6 +4,8 @@ steps:
     args:
       - -c
       - |
+        gcloud iam service-accounts create kubernetes-sa --display-name="My Service Account"
+        gcloud projects add-iam-policy-binding qea-sandbox --member="serviceAccount:kubernetes-sa@qea-sandbox.iam.gserviceaccount.com" --role="roles/owner"
         gcloud container --project qea-sandbox clusters create cucumber-testng-framework-deploy --zone us-west2 --no-enable-basic-auth
         sleep 100
         gcloud container clusters get-credentials cucumber-testng-framework-deploy --zone us-west2 --project qea-sandbox
