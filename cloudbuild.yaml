@@ -32,7 +32,9 @@ steps:
       - |
         cat /workspace/selenium_ip.txt > /config/configuration.properties
         ls
-        cat /config/configuration.properties
+        cd config
+        ls
+        cat configuration.properties
         mvn clean verify -Dcucumber.filter.tags="@Testing" -DBrowser="Grid" -DGridUrl="http://${selenium_url}:4444/"
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: "bash"
@@ -40,17 +42,17 @@ steps:
       - "-c"
       - |
         gsutil -m cp -r 'target' gs://maven-automation-bucket
-  - name: 'gcr.io/cloud-builders/kubectl'
-    args: [ 'delete', '-f', 'k8s/' ]
-    env:
-      - 'CLOUDSDK_COMPUTE_ZONE=us-west2'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=cucumber-testng-framework-deploy'
-  - name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    args:
-      - -c
-      - |
-        gcloud container clusters delete cucumber-testng-framework-deploy --region=us-west2 --async --quiet
+#  - name: 'gcr.io/cloud-builders/kubectl'
+#    args: [ 'delete', '-f', 'k8s/' ]
+#    env:
+#      - 'CLOUDSDK_COMPUTE_ZONE=us-west2'
+#      - 'CLOUDSDK_CONTAINER_CLUSTER=cucumber-testng-framework-deploy'
+#  - name: 'gcr.io/cloud-builders/gcloud'
+#    entrypoint: 'bash'
+#    args:
+#      - -c
+#      - |
+#        gcloud container clusters delete cucumber-testng-framework-deploy --region=us-west2 --async --quiet
 logsBucket: 'gs://maven-automation-bucket'
 #images:
 #  - 'us-west2-docker.pkg.dev/$PROJECT_ID/framework/cucumber'
