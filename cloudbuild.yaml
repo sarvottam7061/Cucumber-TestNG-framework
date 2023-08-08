@@ -30,7 +30,7 @@ steps:
     args:
       - "-c"
       - |
-        echo "$seleniumip" < $(cat /workspace/selenium_ip.txt)
+        echo "$seleniumip" < /workspace/selenium_ip.txt
         mvn clean verify -Dcucumber.filter.tags="@Testing" -DBrowser="Grid" -DGridUrl="$(cat /workspace/selenium_ip.txt):4444/"
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: "bash"
