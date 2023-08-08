@@ -1,10 +1,30 @@
 steps:
-  - name: 'gcr.io/cloud-builders/kubectl'
-    id: 'Deploying-Grid'
-    args: [ 'apply', '-f', 'k8s/' ]
-    env:
-      - 'CLOUDSDK_COMPUTE_ZONE=us-west2'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=cucumber-testng-framework-deploy'
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - -c
+      - |
+        gcloud container --project qea-sandbox clusters create cucumber-testng-framework-deploy --zone us-west2 --no-enable-basic-auth
+        sleep 100
+        gcloud container clusters get-credentials cucumber-testng-framework-deploy --zone us-west2 --project qea-sandbox
+        kubectl create namespace selenium-hub
+        kubectl get namespace
+        kubectl apply -f k8s
+        sleep 200
+        bash -c external_seleniumip="";
+        while [ -z $external_seleniumip ];
+        do echo "Please Wait - Selenium hub is Loading...";
+        external_seleniumip=$(kubectl get svc selenium-hub --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}");
+        [ -z "$external_seleniumip" ] && sleep 15; done; echo "End point ready-" && echo $external_seleniumip; export endpoint=external_seleniumip
+#  - name: 'gcr.io/cloud-builders/docker'
+#    args: [ 'build', '-t', 'us-west2-docker.pkg.dev/$PROJECT_ID/framework/cucumber', '.' ]
+
+#  - name: 'gcr.io/cloud-builders/kubectl'
+#    id: 'Deploying-Grid'
+#    args: [ 'apply', '-f', 'k8s/' ]
+#    env:
+#      - 'CLOUDSDK_COMPUTE_ZONE=us-west2'
+#      - 'CLOUDSDK_CONTAINER_CLUSTER=cucumber-testng-framework-deploy'
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
@@ -19,7 +39,7 @@ steps:
     args:
       - "-c"
       - |
-          mvn clean verify -Dcucumber.filter.tags="@Testing" -DBrowser="Grid" -DGridUrl="http://34.102.91.36:4444/"
+        mvn clean verify -Dcucumber.filter.tags="@Testing" -DBrowser="Grid" -DGridUrl="$external_seleniumip:4444/"
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: "bash"
     args:
@@ -31,6 +51,16 @@ steps:
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=us-west2'
       - 'CLOUDSDK_CONTAINER_CLUSTER=cucumber-testng-framework-deploy'
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - -c
+      - |
+        gcloud container clusters delete cucumber-testng-framework-deploy --region=us-west2 --async --quiet
 logsBucket: 'gs://maven-automation-bucket'
+#images:
+#  - 'us-west2-docker.pkg.dev/$PROJECT_ID/framework/cucumber'
+
+#kubectl get svc selenium-hub --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}"
 options:
   logging: GCS_ONLY
