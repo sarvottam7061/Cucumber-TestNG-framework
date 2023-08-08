@@ -31,7 +31,8 @@ steps:
       - "-c"
       - |
         cat /workspace/selenium_ip.txt
-        mvn clean verify
+        selenium_url=$(cd workspace && cat selenium_ip.txt)
+        mvn clean verify -Dcucumber.filter.tags="@Testing" -DBrowser="Grid" -DGridUrl="http://${selenium_url}:4444/"
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: "bash"
     args:
