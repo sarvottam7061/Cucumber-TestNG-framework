@@ -57,9 +57,13 @@ public class ConfigFileReader {
 
     public String getSeleniumHubIp() {
         String hubip = properties.getProperty("selenium_ip");
+        if (hubip != null) {
+            return hubip;
+        }
+        else {
+        throw new RuntimeException("Hub IP not generated in the config file.");
+        }
 
-
-        return hubip;
     }
 
     public DriverType getBrowser()  {
