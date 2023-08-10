@@ -73,7 +73,7 @@ public class SauceLab {
         loginPage.clickOnCart();
         Assert.assertTrue(loginPage.OneSauceLabsBackpackDisplayed());
         loginPage.clickOnCheckout();
-        loginPage.fillYourAddress("Sarvottam","Kumar","800020");
+        loginPage.fillYourAddress("Manasi","Shinde","12345");
         loginPage.clickContinue();
         Assert.assertTrue(loginPage.PriceTotalDisplayed());
         loginPage.clickFinish();
