@@ -46,7 +46,7 @@ Feature: Shopping Test
     Then Check the cart for the item added
     And Order Successful! Check Message and Return To Home Page
 
-  @Testing
+  @Testing1
   Scenario: We logging into SauceLab and adding Red_T-Shirt to cart and Checking out
     Given I navigate to sauceLab url
     When User has given correct credentials
