@@ -47,8 +47,10 @@ public class HomePage {
         bhinnekaCopyrightFooter.isDisplayed();
         return true;
     }
-    public boolean defaultSauceLabHomePageIsDisplayed() {
+    public boolean defaultSauceLabHomePageIsDisplayed() throws InterruptedException {
         logoName.isDisplayed();
+        Thread.sleep(10000);
+
         return true;
     }
 

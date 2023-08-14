@@ -22,7 +22,7 @@ public class SauceLab {
     }
 
     @Given("I navigate to sauceLab url")
-    public void navigateToSauceLabUrl(){
+    public void navigateToSauceLabUrl() throws InterruptedException {
         Assert.assertTrue(homePage.defaultSauceLabHomePageIsDisplayed());
     }
 
